@@ -1,0 +1,150 @@
+<launch>
+  <!-- Study arguments -->
+  <arg name="config"  default="same"/>     <!-- same|original -->
+  <arg name="world"   default="bosOrt"/>   <!-- bosOrt|duraganOrt|hareketliOrt|karmaOrt -->
+  <arg name="planner" default="dwa"/>      <!-- dwa|teb|neo|trajectory|hybrid -->
+  <arg name="repeats" default="10"/>
+  <arg name="cfg_suffix" default="$(eval 'same' if arg('config')=='same' else 'original')"/>
+  <arg name="model"   default="burger"/>
+
+  <arg name="teleport_on_timeout" default="true"/>  <!-- Enables timeout recovery through teleportation. -->
+  <arg name="model_name" default="turtlebot3_burger"/>  <!-- Gazebo model name. -->
+
+  <!-- GUI controls -->
+  <arg name="gazebo_gui" default="true"/>
+  <arg name="open_rviz"  default="true"/>  <!-- Controls only the RViz nodes in this launch file. -->
+
+  <!-- World selection -->
+  <group if="$(eval arg('world') == 'bosOrt')">
+    <include file="$(find test)/launch/arge1_world.launch">
+      <arg name="gui" value="$(arg gazebo_gui)"/>
+    </include>
+  </group>
+  <group if="$(eval arg('world') == 'duraganOrt')">
+    <include file="$(find test)/launch/arge2_world.launch">
+      <arg name="gui" value="$(arg gazebo_gui)"/>
+    </include>
+  </group>
+  <group if="$(eval arg('world') == 'hareketliOrt')">
+    <include file="$(find test)/launch/arge3_world.launch">
+      <arg name="gui" value="$(arg gazebo_gui)"/>
+    </include>
+  </group>
+  <group if="$(eval arg('world') == 'karmaOrt')">
+    <include file="$(find test)/launch/arge4_world.launch">
+      <arg name="gui" value="$(arg gazebo_gui)"/>
+    </include>
+  </group>
+
+  <!-- Planner selection: YAML plus plugin. -->
+  <arg name="dwa_plugin"        default="dwa_local_planner/DWAPlannerROS"/>
+  <arg name="teb_plugin"        default="teb_local_planner/TebLocalPlannerROS"/>
+  <arg name="neo_plugin"        default="neo_local_planner/NeoLocalPlanner"/>
+  <arg name="trajectory_plugin" default="base_local_planner/TrajectoryPlannerROS"/>
+  <arg name="hybrid_plugin"     default="hybrid_local_planner/HybridPlannerROS"/>
+
+  <!-- YAML paths -->
+  <arg name="dwa_yaml"        default="$(find my_nav_cfg)/param/full_study/dwa_$(arg cfg_suffix).yaml"/>
+  <arg name="teb_yaml"        default="$(find my_nav_cfg)/param/full_study/teb_$(arg cfg_suffix).yaml"/>
+  <arg name="neo_yaml"        default="$(find my_nav_cfg)/param/full_study/neo_$(arg cfg_suffix).yaml"/>
+  <arg name="trajectory_yaml" default="$(find my_nav_cfg)/param/full_study/trajectory_$(arg cfg_suffix).yaml"/>
+  <arg name="hybrid_yaml"     default="$(find my_nav_cfg)/param/full_study/hybrid_$(arg cfg_suffix).yaml"/>
+
+  <!-- Global planner -->
+  <param name="/move_base/base_global_planner" value="global_planner/GlobalPlanner"/>
+
+  <!-- Local planner selection -->
+  <group if="$(eval arg('planner') == 'dwa')">
+    <param name="/move_base/base_local_planner" value="$(arg dwa_plugin)"/>
+    <param name="/move_base/_cfg_src" value="$(arg dwa_yaml)"/>
+    <rosparam command="load" file="$(arg dwa_yaml)" ns="/move_base"/>
+  </group>
+
+  <group if="$(eval arg('planner') == 'teb')">
+    <param name="/move_base/base_local_planner" value="$(arg teb_plugin)"/>
+    <param name="/move_base/_cfg_src" value="$(arg teb_yaml)"/>
+    <rosparam command="load" file="$(arg teb_yaml)" ns="/move_base"/>
+  </group>
+
+  <group if="$(eval arg('planner') == 'neo')">
+    <param name="/move_base/base_local_planner" value="$(arg neo_plugin)"/>
+    <param name="/move_base/_cfg_src" value="$(arg neo_yaml)"/>
+    <rosparam command="load" file="$(arg neo_yaml)" ns="/move_base"/>
+  </group>
+
+  <group if="$(eval arg('planner') == 'trajectory')">
+    <param name="/move_base/base_local_planner" value="$(arg trajectory_plugin)"/>
+    <param name="/move_base/_cfg_src" value="$(arg trajectory_yaml)"/>
+    <rosparam command="load" file="$(arg trajectory_yaml)" ns="/move_base"/>
+  </group>
+
+  <group if="$(eval arg('planner') == 'hybrid')">
+    <param name="/move_base/base_local_planner" value="$(arg hybrid_plugin)"/>
+    <param name="/move_base/_cfg_src" value="$(arg hybrid_yaml)"/>
+    <rosparam command="load" file="$(arg hybrid_yaml)" ns="/move_base"/>
+  </group>
+
+  <!-- Navigation map selection. -->
+  <!-- Disable RViz inside the included navigation launch to avoid duplicate RViz nodes. -->
+  <group if="$(eval arg('world') == 'bosOrt')">
+    <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation.launch">
+      <arg name="model" value="$(arg model)"/>
+      <arg name="map_file" value="$(find test)/maps/map1.yaml"/>
+      <arg name="open_rviz" value="false"/>
+    </include>
+  </group>
+  <group if="$(eval arg('world') == 'duraganOrt')">
+    <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation.launch">
+      <arg name="model" value="$(arg model)"/>
+      <arg name="map_file" value="$(find test)/maps/map2.yaml"/>
+      <arg name="open_rviz" value="false"/>
+    </include>
+  </group>
+  <group if="$(eval arg('world') == 'hareketliOrt')">
+    <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation.launch">
+      <arg name="model" value="$(arg model)"/>
+      <arg name="map_file" value="$(find test)/maps/map1.yaml"/>
+      <arg name="open_rviz" value="false"/>
+    </include>
+  </group>
+  <group if="$(eval arg('world') == 'karmaOrt')">
+    <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation.launch">
+      <arg name="model" value="$(arg model)"/>
+      <arg name="map_file" value="$(find test)/maps/map2.yaml"/>
+      <arg name="open_rviz" value="false"/>
+    </include>
+  </group>
+
+  <!-- RViz configuration arguments -->
+  <arg name="rviz_dwa"        default="$(find test)/rviz/dwa.rviz"/>
+  <arg name="rviz_trajectory" default="$(find test)/rviz/trajectory.rviz"/>
+  <arg name="rviz_teb"        default="$(find test)/rviz/teb.rviz"/>
+  <arg name="rviz_neo"        default="$(find test)/rviz/neo.rviz"/>
+  <arg name="rviz_hybrid"     default="$(find test)/rviz/hybrid.rviz"/>
+
+  <!-- Start exactly one planner-specific RViz node when requested. -->
+  <group if="$(arg open_rviz)">
+    <node if="$(eval arg('planner') == 'dwa')"        pkg="rviz" type="rviz" name="rviz_dwa"
+          args="-d $(arg rviz_dwa)" output="screen"/>
+    <node if="$(eval arg('planner') == 'trajectory')" pkg="rviz" type="rviz" name="rviz_trajectory"
+          args="-d $(arg rviz_trajectory)" output="screen"/>
+    <node if="$(eval arg('planner') == 'teb')"        pkg="rviz" type="rviz" name="rviz_teb"
+          args="-d $(arg rviz_teb)" output="screen"/>
+    <node if="$(eval arg('planner') == 'neo')"        pkg="rviz" type="rviz" name="rviz_neo"
+          args="-d $(arg rviz_neo)" output="screen"/>
+    <node if="$(eval arg('planner') == 'hybrid')"     pkg="rviz" type="rviz" name="rviz_hybrid"
+          args="-d $(arg rviz_hybrid)" output="screen"/>
+  </group>
+
+  <!-- Metrics node -->
+  <node pkg="test" type="nav_measurements_fs.py" name="robot_navigation_metrics"
+        output="screen" cwd="node" required="true">
+    <param name="repeats" value="$(arg repeats)"/>
+    <param name="config" value="$(arg config)"/>
+    <param name="world" value="$(arg world)"/>
+    <param name="local_planner" value="$(arg planner)"/>
+    <param name="teleport_on_timeout" value="$(arg teleport_on_timeout)"/>
+    <param name="model_name" value="$(arg model_name)"/>
+  </node>
+
+</launch>

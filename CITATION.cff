@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+title: "ROS Local Planner Benchmark and Reproducibility Package"
+type: software
+authors:
+  - family-names: "Kaya"
+    given-names: "Ömer Mutlu Türk"
+  - family-names: "Okatan"
+    given-names: "Beyza Nur"
+  - family-names: "Uslu"
+    given-names: "Erkan"
+message: "If you use this repository in academic work, please cite the corresponding Preliminary Study and/or Full Study publication listed in CITATIONS.bib."

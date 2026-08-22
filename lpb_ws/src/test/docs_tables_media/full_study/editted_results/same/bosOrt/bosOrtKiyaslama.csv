@@ -1,0 +1,6 @@
+Local Planner,Average Deviation Time (s),Average Navigation Time (s),Average Planned Path Length (m),Average Executed Path Length (m),Average Speed (m/s),Static Collisions (%),Dynamic Collisions (%),Local Planner Failure (%),Timeout (%),Success (%)
+DWA,2.84,15.0,2.2,2.4,0.16,0,0,2,0,98
+TEB,13.24,34.07,2.2,4.13,0.14,0,0,18,22,60
+Trajectory,2.02,15.41,2.19,2.25,0.15,0,0,0,0,100
+Hybrid,6.9,21.44,2.19,3.13,0.15,0,0,0,2,98
+Neo,0.02,14.59,2.2,2.22,0.15,0,0,30,0,70

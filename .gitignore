@@ -1,0 +1,17 @@
+lpb_ws/build/
+lpb_ws/devel/
+lpb_ws/install/
+lpb_ws/src/test/worlds/build/
+.catkin_tools/
+
+**/__pycache__/
+*.pyc
+*.pyo
+*.log
+
+.vs/
+**/.vs/
+.~lock*#
+*.swp
+*~
+.DS_Store

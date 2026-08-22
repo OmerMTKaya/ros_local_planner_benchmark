@@ -1,0 +1,37 @@
+<launch>
+  <!-- Model ve konum parametreleri -->
+  <arg name="model" default="burger" />
+  <arg name="x_pos" default="0.0"/>
+  <arg name="y_pos" default="0.0"/>
+  <arg name="z_pos" default="0.0"/>
+
+  <!-- Gazebo dünyasını yükle -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find turtlebot3_gazebo)/worlds/deneme1_world.world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+  <!-- Robotun URDF dosyasını yükle -->
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
+
+  <!-- Robotu Gazebo'ya spawn et -->
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model turtlebot3 -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
+
+  <!-- SLAM için gmapping node'u -->
+  <node name="slam_gmapping" pkg="gmapping" type="slam_gmapping" respawn="false">
+    <param name="base_frame" value="base_footprint"/>
+    <param name="map_frame" value="map"/>
+    <param name="odom_frame" value="odom"/>
+    <param name="scan_topic" value="scan"/>
+    <param name="use_scan_matching" value="true"/>
+  </node>
+
+  <!-- Launch TurtleBot3 navigation stack -->
+  <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation.launch" />
+
+</launch>
+

@@ -1,0 +1,17 @@
+License Scope Notice
+
+Original research-authored materials in this repository are licensed under the
+GNU General Public License version 3.0 only (GPL-3.0-only) where the repository
+owner has the right to license them.
+
+This repository also contains source packages and assets originating from
+upstream ROS, local planner, TurtleBot3, and related projects. Those upstream
+components retain their own package-specific licenses, copyright notices,
+LICENSE/COPYING files, and package metadata. Those package-specific notices
+take precedence for the corresponding upstream components.
+
+See LICENSES.md for a component-level overview.
+
+The full GPLv3 text is provided at:
+
+LICENSES/GPL-3.0-only.txt

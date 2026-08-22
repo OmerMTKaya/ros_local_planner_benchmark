@@ -1,0 +1,73 @@
+NeoLocalPlanner:
+
+# SAME
+# Aşağıdaki parametreler turtlebot3 burger'ın varsayılan lokal planlayıcısı
+# olarak gelen dwa lokal planlayıcısındaki değerlerdir ve
+# adil bir kıyaslama olması açısından tüm lokal planlayıcılarda
+# aynı yapılmıştır.
+
+# Robot Configuration Parameters
+  # max_vel_x: 0.22
+  # max_rot_vel: 2.75 #Bu parametre Neo yerel planlayıcısında "max_vel_theta" parametresi yerine kullanılıyor
+  # acc_lim_x: 2.5
+  # acc_lim_theta: 3.2 
+
+# Goal Tolerance Parameters
+  # xy_goal_tolerance: 0.05 # gercek uygulamalarda 0.1 olarak ayarlanıyormus.
+  # yaw_goal_tolerance: 0.17
+#--------------------------------------------------------------------------------#
+
+
+# ORIGINAL
+# Orijinal (Varsayılan/Default) parametreler asagidaki gibidir.
+
+# --- Limitler (NeoLocalPlanner.cpp)
+  acc_lim_x:        0.5      # L774
+  acc_lim_y:        0.5      # L775
+  acc_lim_theta:    0.5      # L776
+  acc_limit_trans:  0.5      # L777  (kodda default = acc_lim_x)
+  min_vel_x:       -0.1      # L778
+  max_vel_x:        0.5      # L779
+  min_vel_y:       -0.5      # L780
+  max_vel_y:        0.5      # L781
+  min_rot_vel:      0.1      # L782
+  max_rot_vel:      0.5      # L783
+  min_trans_vel:    0.1      # L784
+  max_trans_vel:    0.5      # L785  (kodda default = max_vel_x)
+  rot_stopped_vel:  0.05     # L786  (0.5 * min_rot_vel)
+  trans_stopped_vel: 0.05    # L787  (0.5 * min_trans_vel)
+  yaw_goal_tolerance: 0.02   # L788
+  xy_goal_tolerance:  0.1    # L789
+
+# --- Kinematik/Genel (NeoLocalPlanner.cpp)
+  differential_drive:  true  # L791
+  constrain_final:     false # L792
+  goal_tune_time:      0.5   # L793
+  lookahead_time:      0.2   # L794
+  lookahead_dist:      0.5   # L795
+  start_yaw_error:     0.2   # L796
+
+# --- Kazançlar (NeoLocalPlanner.cpp)
+  pos_x_gain:          1.0   # L797
+  pos_y_gain:          1.0   # L798
+  pos_y_yaw_gain:      1.0   # L799
+  yaw_gain:            1.0   # L800
+  static_yaw_gain:     3.0   # L801
+
+  cost_x_gain:         0.1   # L802
+  cost_y_gain:         0.1   # L803
+  cost_y_yaw_gain:     0.1   # L804
+  cost_y_lookahead_dist: 0.0 # L805
+  cost_y_lookahead_time: 1.0 # L806
+  cost_yaw_gain:       1.0   # L807
+  low_pass_gain:       0.5   # L808
+
+# --- Sınırlar / Güvenlik (NeoLocalPlanner.cpp)
+  max_cost:            0.9   # L809
+  max_curve_vel:       0.2   # L810
+  max_goal_dist:       0.5   # L811
+  max_backup_dist:     0.1   # L812  (diff-drive ise 0.1, değilse 0.0)
+  min_stop_dist:       0.5   # L813
+  emergency_acc_lim_x: 2.0   # L814  (acc_lim_x * 4 varsayılanıyla eşdeğer)
+  enable_software_stop: true # L815
+  allow_reversing:     false# L816

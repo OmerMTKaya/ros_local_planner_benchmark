@@ -1,0 +1,54 @@
+<sdf version="1.6">
+  <world name="empty_world">
+    <!-- Fiziksel ortam özellikleri -->
+    <physics type="ode">
+      <gravity>0 0 -9.81</gravity>
+      <max_step_size>0.01</max_step_size>  <!-- Adım boyutunu küçült -->
+      <real_time_update_rate>500</real_time_update_rate>  <!-- Daha düşük güncelleme hızı -->
+    </physics>
+
+    <!-- Zemin: Boş alan -->
+    <model name="ground_plane">
+      <pose>0 0 0 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size> <!-- Zemin boyutları (100x100) -->
+            </plane>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size> <!-- Zemin boyutları (100x100) -->
+            </plane>
+          </geometry>
+        </visual>
+      </link>
+    </model>
+
+    <!-- TurtleBot3 Robotu -->
+    <include>
+      <uri>model://turtlebot3_burger</uri>  <!-- Model türü (burger modelini kullanıyoruz) -->
+      <pose>1.0 2.0 0.0 0.0 0.0 0.0</pose>  <!-- x, y, z, roll, pitch, yaw -->
+    </include>
+
+
+    <!-- Işıklandırma -->
+    <light name="sun">
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>1.0 1.0 1.0 1.0</diffuse>
+      <specular>0.0 0.0 0.0 1.0</specular>
+      <attenuation>
+        <range>100</range>
+        <constant>0.9</constant>
+        <linear>0.1</linear>
+        <quadratic>0.01</quadratic>
+      </attenuation>
+    </light>
+  </world>
+</sdf>
+

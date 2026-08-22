@@ -1,0 +1,11 @@
+HybridPlannerROS:
+  robot_base_frame: base_link
+  odom_topic: odom
+  global_frame: map
+  max_vel_x: 0.4
+  max_vel_theta: 0.8
+  acc_lim_x: 0.5
+  acc_lim_theta: 1.0
+  min_obstacle_dist: 0.2
+  goal_tolerance_xy: 0.05
+  goal_tolerance_yaw: 0.1

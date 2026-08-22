@@ -1,0 +1,102 @@
+HybridPlannerROS:
+
+# Namespace: /move_base/HybridPlannerROS
+# Bu dosya HYBRID yerel planlayıcı için orijinal default paramları içerir.
+# Sağdaki yorumlarda parametrenin kaynağı ve satırı belirtilmiştir.
+
+# SAME
+# Aşağıdaki parametreler turtlebot3 burger'ın varsayılan lokal planlayıcısı
+# olarak gelen dwa lokal planlayıcısındaki değerlerdir ve
+# adil bir kıyaslama olması açısından tüm lokal planlayıcılarda
+# aynı yapılmıştır.
+
+# Robot Configuration Parameters
+  max_vel_x: 0.22
+  max_vel_theta: 2.75
+  acc_lim_x: 2.5
+  acc_lim_theta: 3.2 
+
+# Goal Tolerance Parameters
+  xy_goal_tolerance: 0.05 # gercek uygulamalarda 0.1 olarak ayarlanıyormus.
+  yaw_goal_tolerance: 0.17
+#--------------------------------------------------------------------------------#
+
+
+# ORIGINAL
+# Orijinal parametreler asagidaki gibidir.
+# Yukardaki sonradan eklenen parametrelerle çakışmaması için
+# aşağıdaki aynı adlı parametreler yoruma alınmıştır.
+
+############################################################
+# DWA-based parameters loaded by move_base.launch
+# Source:
+# - move_base.launch
+# - dwa_burger.yaml
+############################################################
+  # move_base.launch: line 18
+  # <rosparam file="$(find turtlebot3_navigation)/param/dwa_local_planner_params_$(arg model).yaml" command="load" />
+  #max_vel_x: 0.22      # dwa_burger.yaml: line 4
+  min_vel_x: -0.22     # dwa_burger.yaml: line 5
+  max_vel_y: 0.0       # dwa_burger.yaml: line 7
+  min_vel_y: 0.0       # dwa_burger.yaml: line 8
+  max_vel_trans: 0.22  # dwa_burger.yaml: line 11
+  min_vel_trans: 0.11  # dwa_burger.yaml: line 12
+  #max_vel_theta: 2.75  # dwa_burger.yaml: line 14
+  min_vel_theta: 1.37  # dwa_burger.yaml: line 15
+  #acc_lim_x: 2.5       # dwa_burger.yaml: line 17
+  acc_lim_y: 0.0       # dwa_burger.yaml: line 18
+  #acc_lim_theta: 3.2   # dwa_burger.yaml: line 19
+  #xy_goal_tolerance: 0.05   # dwa_burger.yaml: line 22
+  #yaw_goal_tolerance: 0.17  # dwa_burger.yaml: line 23
+  latch_xy_goal_tolerance: false  # dwa_burger.yaml: line 24
+  sim_time: 1.5        # dwa_burger.yaml: line 27
+  vx_samples: 20       # dwa_burger.yaml: line 28
+  vy_samples: 0        # dwa_burger.yaml: line 29
+  vth_samples: 40      # dwa_burger.yaml: line 30
+  controller_frequency: 10.0  # dwa_burger.yaml: line 31
+  path_distance_bias: 32.0    # dwa_burger.yaml: line 34
+  goal_distance_bias: 20.0    # dwa_burger.yaml: line 35
+  occdist_scale: 0.02  # dwa_burger.yaml: line 36
+  forward_point_distance: 0.325 # dwa_burger.yaml: line 37
+  stop_time_buffer: 0.2 # dwa_burger.yaml: line 38
+  scaling_speed: 0.25   # dwa_burger.yaml: line 39
+  max_scaling_factor: 0.2 # dwa_burger.yaml: line 40
+  oscillation_reset_dist: 0.05  # dwa_burger.yaml: line 43
+  publish_traj_pc: true   # dwa_burger.yaml: line 46
+  publish_cost_grid_pc: true  # dwa_burger.yaml: line 47
+
+############################################################
+# Parameters explicitly defaulted in HybridPlanner.cfg
+############################################################
+  sim_granularity: 0.025  # HybridPlanner.cfg: line 14
+  angular_sim_granularity: 0.1  # HybridPlanner.cfg: line 15
+  twirling_scale: 0.0     # HybridPlanner.cfg: line 20
+  oscillation_reset_angle: 0.2  # HybridPlanner.cfg: line 24
+  restore_defaults: false # HybridPlanner.cfg: line 37
+
+############################################################
+# Parameters explicitly defaulted in hybrid_planner.cpp
+############################################################
+  sum_scores: false       # hybrid_planner.cpp: lines 193-195
+  global_frame_id: odom   # hybrid_planner.cpp: lines 204-205
+  cheat_factor: 1.0       # hybrid_planner.cpp: line 226
+
+############################################################
+# Parameter behavior from hybrid_planner_ros.cpp
+############################################################
+  # hybrid_planner_ros.cpp: lines 110-112 -> odom_helper_("odom")
+  # hybrid_planner_ros.cpp: lines 135-137 -> overridden only if param exists
+  odom_topic: odom
+
+############################################################
+# Used by code but NOT explicitly assigned a numeric default
+# in the sources you gave me, so they are intentionally omitted:
+#
+  # use_dwa
+  # acc_lim_trans
+  # prune_plan
+  # trans_stopped_vel
+  # theta_stopped_vel
+#
+# I am not inventing values for these.
+############################################################

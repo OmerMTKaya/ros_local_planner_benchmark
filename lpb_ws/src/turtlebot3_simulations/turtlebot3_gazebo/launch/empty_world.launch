@@ -1,0 +1,21 @@
+<launch>
+  <!-- TurtleBot3 Gazebo simülasyonunu başlat -->
+  <arg name="model" default="burger" />
+
+  <!-- Gazebo'yu başlat ve boş dünya dosyasını yükle -->
+  <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_empty_world.launch">
+    <arg name="model" value="$(arg model)" />
+  </include>
+  <param name="use_sim_time" value="true" />
+  <!-- SLAM başlatma (Harita oluşturma) -->
+  <node name="slam_gmapping" pkg="gmapping" type="slam_gmapping" respawn="false">
+    <param name="base_frame" value="base_footprint"/>
+    <param name="map_frame" value="map"/>
+    <param name="odom_frame" value="odom"/>
+    <param name="scan_topic" value="scan"/>
+    <param name="use_scan_matching" value="true"/>
+  </node>
+ 
+
+</launch>
+

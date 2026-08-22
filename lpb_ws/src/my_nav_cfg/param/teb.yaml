@@ -1,0 +1,32 @@
+TebLocalPlannerROS:
+  odom_topic: odom
+  map_frame: map
+
+  # kinematik sınırlar
+  acc_lim_x: 0.5
+  acc_lim_theta: 1.0
+  max_vel_x: 0.4
+  max_vel_x_backwards: 0.2
+  max_vel_theta: 0.8
+
+  # robot şekli (TB3 için basit daire)
+  footprint_model:
+    type: "circular"
+    radius: 0.15
+
+  # engel/costmap ilişkisi
+  min_obstacle_dist: 0.2
+  inflation_dist: 0.3
+  include_costmap_obstacles: true
+  costmap_obstacles_behind_robot_dist: 1.0
+
+  # optimizasyon ağırlıkları (başlangıç için makul)
+  penalty_epsilon: 0.1
+  weight_optimaltime: 1.0
+  weight_obstacle: 50.0
+  weight_viapoint: 1.0
+
+  # topoloji ve zaman adımı
+  enable_homotopy_class_planning: false
+  dt_ref: 0.3
+  dt_hysteresis: 0.1

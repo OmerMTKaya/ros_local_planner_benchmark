@@ -1,0 +1,15 @@
+global_planner:
+  allow_unknown: true      # Bilinmeyen alanlardan geçişe izin
+  use_dijkstra: false      # A* algoritmasını kullan
+  use_quadratic: true      # Quadratic potansiyel kullan
+  use_grid_path: false     # Grid sınırları boyunca yollar oluşturma
+  visualize_potential: false
+  default_tolerance: 0.0   # Hedef nokta toleransı
+  lethal_cost: 253         # Engeller için ölümcül maliyet
+  neutral_cost: 50         # Nötr maliyet
+  cost_factor: 3.0         # Maliyet katsayısı
+  publish_potential: false # Potansiyel haritayı yayınlama
+  orientation_mode: 0      # Yönlendirme modu (0: yok)
+  orientation_window_size: 1
+  conservative_reset_dist: 999.0 
+
