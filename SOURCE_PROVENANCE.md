@@ -73,6 +73,7 @@ ros-noetic-voxel-grid 1.17.3-1focal.20250519.231756
 - Package metadata versions retained locally: `turtlebot3` 1.2.6, `turtlebot3_msgs` 1.0.1, `turtlebot3_simulations` 1.3.2.
 - Retained license declarations: Apache 2.0 and/or BSD depending on package.
 - Exact revision not recoverable from retained local metadata.
+- Portability patch: `turtlebot3_navigation/launch/turtlebot3_navigation.launch` uses `$(optenv TURTLEBOT3_MODEL burger)` instead of requiring `TURTLEBOT3_MODEL` to be defined. This does not alter the benchmark model or planner behavior; it preserves environment-variable override support while making Burger the fallback used by the documented benchmark.
 
 ## Source Artifact SHA256
 
