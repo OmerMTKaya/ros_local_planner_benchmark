@@ -64,6 +64,7 @@ The Preliminary Study is the baseline comparison. The Full Study extends it with
 - Gazebo 11
 - `catkin_make`
 - `rosdep`
+- `git` (for cloning from GitHub)
 
 The repository is validated on Ubuntu 20.04.6 LTS with ROS Noetic and Gazebo 11.15.1.
 
@@ -108,7 +109,7 @@ source devel/setup.bash
 ./src/test/run_matrix_fs.sh
 ```
 
-The runtime scripts set the required TurtleBot3 model argument through launch defaults; no separate `TURTLEBOT3_MODEL` export is required for the documented matrix scripts.
+The retained TurtleBot3 navigation launch now falls back to the benchmark model (`burger`) when `TURTLEBOT3_MODEL` is unset, so no separate model export is required for the documented matrix scripts. An explicitly set `TURTLEBOT3_MODEL` still overrides this fallback.
 
 ## Output Structure
 
@@ -161,11 +162,14 @@ The Preliminary Study is the initial/baseline local planner comparison.
 The Full Study extends the Preliminary Study with a larger performance-reliability evaluation.
 
 ```bibtex
-@unpublished{kaya2026comprehensive,
+@article{kaya2026comprehensive,
   author = {Kaya, {\"O}mer Mutlu T{\"u}rk and Uslu, Erkan},
   title = {Comprehensive Performance-Reliability Analysis of ROS-Based Local Planners},
+  journal = {Engineering Science and Technology, an International Journal},
+  volume = {83},
+  pages = {102524},
   year = {2026},
-  note = {Manuscript under review}
+  doi = {10.1016/j.jestch.2026.102524}
 }
 ```
 

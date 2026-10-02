@@ -11,6 +11,7 @@ No additional local planner or project source repository needs to be cloned afte
 - Gazebo 11
 - `catkin_make`
 - `rosdep`
+- `git` (when cloning from GitHub)
 - `sudo` privileges for apt/rosdep installation
 
 ## Repository-Contained Source
@@ -32,7 +33,22 @@ Run:
 ./install_dependencies.sh
 ```
 
-The installer checks for Ubuntu 20.04 and `/opt/ros/noetic/setup.bash`, installs `python3-rosdep` if needed, installs `ros-noetic-rosserial-python` for the included TurtleBot3 bringup package, initializes/updates `rosdep`, and runs:
+The installer checks for Ubuntu 20.04 and `/opt/ros/noetic/setup.bash`, installs `python3-rosdep` if needed, installs the explicit clean-machine prerequisites listed below, initializes/updates `rosdep`, and then resolves the remaining package.xml dependencies.
+
+Explicit prerequisites installed by the script:
+
+- `ros-noetic-rosserial-python`
+- `ros-noetic-tf2-sensor-msgs`
+- `ros-noetic-move-base-msgs`
+- `ros-noetic-costmap-converter`
+- `ros-noetic-mbf-costmap-core`
+- `ros-noetic-mbf-msgs`
+- `ros-noetic-libg2o`
+- `libsuitesparse-dev`
+
+The ROS packages above were required during clean-machine validation even though several are already declared by retained upstream package manifests. `libsuitesparse-dev` is required by the retained TEB CMake configuration.
+
+The installer then runs:
 
 ```bash
 rosdep install --from-paths lpb_ws/src --ignore-src -r -y --rosdistro noetic --skip-keys rosserial_python
@@ -56,7 +72,7 @@ On the validated machine, active Python imports resolved to:
 - `seaborn 0.13.2`
 - `cv2 4.2.0`
 
-The repository declares Ubuntu/rosdep package keys instead of freezing the full local Python environment.
+The repository declares Ubuntu/rosdep package keys instead of freezing the full local Python environment. The benchmark launch chain defaults the TurtleBot3 model to `burger`; setting `TURTLEBOT3_MODEL` is not required for the documented runs.
 
 ## Build And Run
 
