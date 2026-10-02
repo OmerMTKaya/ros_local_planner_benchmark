@@ -41,11 +41,22 @@ fi
 
 source "$ROS_SETUP"
 
+# Explicit prerequisites observed during clean-machine validation on
+# Ubuntu 20.04.6 + ROS Noetic + Gazebo 11.15.1. Some are declared in
+# upstream package.xml files but were not installed by rosdep on the
+# validation machine; SuiteSparse is required by TEB's CMake checks.
 EXTRA_APT_PACKAGES=(
   ros-noetic-rosserial-python
+  ros-noetic-tf2-sensor-msgs
+  ros-noetic-move-base-msgs
+  ros-noetic-costmap-converter
+  ros-noetic-mbf-costmap-core
+  ros-noetic-mbf-msgs
+  ros-noetic-libg2o
+  libsuitesparse-dev
 )
 
-log "Installing apt dependencies not covered by this rosdep database"
+log "Installing explicit reproducibility prerequisites"
 sudo apt-get update
 sudo apt-get install -y "${EXTRA_APT_PACKAGES[@]}"
 
@@ -59,7 +70,7 @@ fi
 log "Updating rosdep database"
 rosdep update
 
-log "Installing workspace dependencies declared in package.xml files"
+log "Installing remaining workspace dependencies declared in package.xml files"
 rosdep install --from-paths "$WORKSPACE_SRC" --ignore-src -r -y --rosdistro noetic \
   --skip-keys rosserial_python
 
