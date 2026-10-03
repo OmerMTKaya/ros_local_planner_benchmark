@@ -1,3 +1,9 @@
+<p align="center">
+  <img src="ros_yerel_planlayıcı_karşılaştırma_posteri.png"
+       alt="ROS Local Planner Benchmark Cover"
+       width="100%">
+</p>
+
 # ROS Local Planner Benchmark and Reproducibility Package
 
 ## Project Overview
