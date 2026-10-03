@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="ros_yerel_planlayıcı_karşılaştırma_posteri.png"
+  <img src="lpb_ws/src/test/docs_tables_media/ros_yerel_planlayıcı_karşılaştırma_posteri.png"
        alt="ROS Local Planner Benchmark Cover"
        width="100%">
 </p>
