@@ -1,2 +1,0 @@
-Trial,"From (x,y)","To (x,y)",Deviation Time (s),Navigation Time (s),Planned Path Length (m),Executed Path Length (m),Average Speed (m/s),Static Collisions,Dynamic Collisions,Local Planner Failure,Timeout,Success
-General Result,,,0.0000,0.0000,,0.0000,0.0000,0,0,0,0,0
